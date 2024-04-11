@@ -12,10 +12,10 @@ public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 30)
-    private String last_name;
+    private String lastName;
     @Column(length = 30)
-    private String first_name;
+    private String firstName;
     @Temporal(TemporalType.DATE)
-    private Date birth_day;
+    private Date birthDay;
     private Boolean isSick;
 }

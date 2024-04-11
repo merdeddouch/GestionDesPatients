@@ -11,4 +11,7 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
     Page<Patient> findAll(Pageable pageable);
 
     Page<Patient> findByIsSick(Boolean isSick,Pageable pageable);
+
+    Page<Patient> findByLastNameContainingOrFirstNameContaining(String lastName,String firstname, Pageable pageable);
+
 }

@@ -12,10 +12,18 @@
         <div class="card-header bg-info ">
            <h6> Patients List</h6>
         </div>
-        <div class="card-group  ms-auto my-2">
-            <a th:href="@{/index(p=${currentPage},isSick=true)}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
-            <a th:href="@{/index(p=${currentPage},isSick=false)}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
-            <a th:href="@{/index(p=${(currentPage)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
+        <div class="card-group flex-box justify-content-between my-2">
+            <div class="mx-3">
+                <form method="get">
+                    <input class="form-control my-2" placeholder="search" name="value"  th:value="${currentValue == null}?'' : ${currentValue}">
+                    <input th:href="@{/index(p=${(currentPage)},isSitck=${(currentPatientHealth)},value=${(currentValue)})}" class="btn btn-info" type="submit">
+                </form>
+            </div>
+            <div class="mx-3 my-2">
+                <a th:href="@{/index(p=${currentPage},isSick=true,value=${(currentValue)})}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
+                <a th:href="@{/index(p=${currentPage},isSick=false,value=${(currentValue)})}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
+                <a th:href="@{/index(p=${(currentPage)},value=${(currentValue)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
+            </div>
         </div>
         <div class="card-body">
             <table class="table">
@@ -44,20 +52,20 @@
                 <tbody>
                 <tr th:each="patient:${ListPatients}">
                     <td th:text="${patient.id}"></td>
-                    <td th:text="${patient.last_name}"></td>
-                    <td th:text="${patient.first_name}"></td>
-                    <td th:text="${patient.birth_day}"></td>
+                    <td th:text="${patient.lastName}"></td>
+                    <td th:text="${patient.firstName}"></td>
+                    <td th:text="${patient.birthDay}"></td>
                     <td th:text="${patient.isSick}"></td>
                     <td>
-                        <a th:href="@{/delete/(id=patient.id)}" class=" mx-1 btn btn-danger">Delete</a>
-                        <a th:href="@{/edit/(id=patient.id)}" class=" mx-1 btn btn-primary">Edit</a>
+                        <a th:href="@{/delete/(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
+                        <a th:href="@{/edit/(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
             <div class="card-group">
                 <div class="btn-group" th:each="page,state:${pages}">
-                    <a th:class="${currentPage == state.index} ? 'mx-1 btn btn-info' : 'mx-1 btn btn-outline-info'  " th:text="${state.index}" th:href="@{/index(p=${(state.index)},isSick=${currentPatientHealth})}"> </a>
+                    <a th:class="${currentPage == state.index} ? 'mx-1 btn btn-info' : 'mx-1 btn btn-outline-info'  " th:text="${state.index}" th:href="@{/index(p=${(state.index)},isSick=${currentPatientHealth},value=${(currentValue)})}"> </a>
                 </div>
             </div>
         </div>

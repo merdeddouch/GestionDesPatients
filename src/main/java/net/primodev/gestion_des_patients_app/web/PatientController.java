@@ -6,28 +6,27 @@ import net.primodev.gestion_des_patients_app.entities.Patient;
 import net.primodev.gestion_des_patients_app.repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Scanner;
 
 @Controller
 @AllArgsConstructor
 public class PatientController {
     private PatientRepository patientRepository;
     @GetMapping("/index")
-    public String index(Model model,@RequestParam(name = "isSick", defaultValue = "") Boolean isSick ,@RequestParam(name = "p", defaultValue = "0")  int page , @RequestParam(name = "s" , defaultValue = "5") int size){
+    public String index(Model model,@RequestParam(name = "isSick", defaultValue = "") Boolean isSick , @RequestParam(name ="value" ,defaultValue = "") String value,
+                        @RequestParam(name = "p", defaultValue = "0")  int page , @RequestParam(name = "s" , defaultValue = "5") int size){
+
+
         Page<Patient> Patients;
         if (isSick != null){
             Patients = patientRepository.findByIsSick(isSick,PageRequest.of(page,size));
+            // here beacuuse probably there is a value in the bar search so i will set the bar search to ""
+            value="";
         }else {
-            Patients = patientRepository.findAll(PageRequest.of(page,size));
+            Patients = patientRepository.findByLastNameContainingOrFirstNameContaining(value,value,PageRequest.of(page,size));
         }
 
         // get pages
@@ -38,6 +37,7 @@ public class PatientController {
         model.addAttribute("pages",AllPages);
         model.addAttribute("currentPage",page);
         model.addAttribute("currentPatientHealth",isSick);
+        model.addAttribute("currentValue",value);
 //        Patients.forEach(patient -> {
 //            System.out.println("patient : "+patient);
 //        });
