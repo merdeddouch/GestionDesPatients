@@ -1,0 +1,39 @@
+package net.primodev.gestion_des_patients_app;
+
+import net.primodev.gestion_des_patients_app.entities.Patient;
+import net.primodev.gestion_des_patients_app.repository.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Date;
+import java.util.List;
+
+@SpringBootApplication
+public class GestionDesPatientsAppApplication implements CommandLineRunner {
+
+
+
+    //inject the Patient Dependency
+    @Autowired
+    private PatientRepository patientRepository;
+
+    public static void main(String[] args) {
+        SpringApplication.run(GestionDesPatientsAppApplication.class, args);
+    }
+
+
+
+    @Override
+    public void run(String... args) throws Exception {
+//        patientRepository.save(new Patient(null,"MERDEDDOUCH","Mohammed",new Date(),true));
+//        patientRepository.save(new Patient(null,"MERDEDDOUCH","Ahmmad",new Date(),true));
+//        patientRepository.save(new Patient(null,"SAMI","Amina",new Date(),false));
+//        patientRepository.save(new Patient(null,"KHADIJA","Laila",new Date(),true));
+//        patientRepository.save(new Patient(null,"BRADA","Zakaria",new Date(),false));
+
+    }
+}
