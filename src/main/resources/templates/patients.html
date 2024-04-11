@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" >
+    <link href="webjars/bootstrap/5.3.2/js/bootstrap.min.js">
     <meta charset="UTF-8">
     <title>Patients</title>
 </head>
 <body>
-    <h2>List Patients</h2>
+<div class="container my-3">
+    <div class="card">
+        <div class="card-header bg-info ">
+           <h6> Patients List</h6>
+        </div>
+        <div class="card-group  ms-auto my-2">
+            <a th:href="@{/index(p=${currentPage},isSick=true)}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
+            <a th:href="@{/index(p=${currentPage},isSick=false)}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
+            <a th:href="@{/index(p=${(currentPage)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            BirthDay
+                        </th>
+                        <th>
+                            isSick
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="patient:${ListPatients}">
+                    <td th:text="${patient.id}"></td>
+                    <td th:text="${patient.last_name}"></td>
+                    <td th:text="${patient.first_name}"></td>
+                    <td th:text="${patient.birth_day}"></td>
+                    <td th:text="${patient.isSick}"></td>
+                    <td>
+                        <a th:href="@{/delete/(id=patient.id)}" class=" mx-1 btn btn-danger">Delete</a>
+                        <a th:href="@{/edit/(id=patient.id)}" class=" mx-1 btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="card-group">
+                <div class="btn-group" th:each="page,state:${pages}">
+                    <a th:class="${currentPage == state.index} ? 'mx-1 btn btn-info' : 'mx-1 btn btn-outline-info'  " th:text="${state.index}" th:href="@{/index(p=${(state.index)},isSick=${currentPatientHealth})}"> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

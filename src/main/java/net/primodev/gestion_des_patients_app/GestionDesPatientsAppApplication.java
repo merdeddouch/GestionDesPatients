@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.data.domain.PageRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -25,15 +25,17 @@ public class GestionDesPatientsAppApplication implements CommandLineRunner {
         SpringApplication.run(GestionDesPatientsAppApplication.class, args);
     }
 
-
-
     @Override
     public void run(String... args) throws Exception {
-//        patientRepository.save(new Patient(null,"MERDEDDOUCH","Mohammed",new Date(),true));
-//        patientRepository.save(new Patient(null,"MERDEDDOUCH","Ahmmad",new Date(),true));
-//        patientRepository.save(new Patient(null,"SAMI","Amina",new Date(),false));
-//        patientRepository.save(new Patient(null,"KHADIJA","Laila",new Date(),true));
-//        patientRepository.save(new Patient(null,"BRADA","Zakaria",new Date(),false));
+//        patientRepository.save(new Patient(null,"FATNAOUI","Hamza",new Date(),true));
+//        patientRepository.save(new Patient(null,"ELHARACH","AbdElAtai",new Date(),false));
+//        patientRepository.save(new Patient(null,"LMHAFAD","Yhia",new Date(),false));
+//        patientRepository.save(new Patient(null,"NASSER","fatiha",new Date(),true));
+//        patientRepository.save(new Patient(null,"ILAA","Dina",new Date(),false));
 
+//  to test the function
+//        patientRepository.findByIsSick(true, PageRequest.of(0, 4)).getContent().forEach(patient -> {
+//            System.out.println(patient);
+//        });
     }
 }

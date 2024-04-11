@@ -18,6 +18,4 @@ public class Patient {
     @Temporal(TemporalType.DATE)
     private Date birth_day;
     private Boolean isSick;
-
-
 }
