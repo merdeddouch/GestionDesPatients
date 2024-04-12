@@ -57,8 +57,8 @@
                     <td th:text="${patient.birthDay}"></td>
                     <td th:text="${patient.isSick}"></td>
                     <td>
-                        <a th:href="@{/delete/(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
-                        <a th:href="@{/edit/(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
+                        <a th:href="@{/Delete(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
+                        <a th:href="@{/edit(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
                     </td>
                 </tr>
                 </tbody>

@@ -43,7 +43,28 @@ public class PatientController {
 //        });
         // return a view
         return "patients";
-
     }
+    @GetMapping("/Delete")
+    public String delete(Model model, @RequestParam("id") Long id) {
+        // Get the patient we want to delete
+        Patient patient = patientRepository.findById(id).orElse(null);
+        if (patient != null) {
+            model.addAttribute("patient", patient);
+            return "deletePatient";
+        } else {
+            return "redirect:/index"; // Redirect to index if patient is not found
+        }
+    }
+    @GetMapping("/deleteValidation")
+    public String deleteValidation(@RequestParam(name = "deleteValidation") String confiming ,@RequestParam("id") Long id){
+        if (confiming.equals("Confirm")){
+            patientRepository.deleteById(id);
+        }else{
+            return "redirect:/index";
+        }
+        return "redirect:/index";
+    }
+
+
 
 }
