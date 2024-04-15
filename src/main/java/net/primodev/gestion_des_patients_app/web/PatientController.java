@@ -64,6 +64,17 @@ public class PatientController {
         }
         return "redirect:/index";
     }
+    @GetMapping("/addPatient")
+    public String addPatient(Model model){
+        model.addAttribute("patient",new Patient());
+        return "AddPatient";
+    }
+
+    @GetMapping("/savePatient")
+    public String savePatient(Patient patient){
+        patientRepository.save(patient);
+        return "redirect:/index";
+    }
 
 
 
