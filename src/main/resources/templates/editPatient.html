@@ -6,7 +6,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Add Patient</title>
+    <title>edit a Patient</title>
 </head>
 <body>
 <section class="mt-5" layout:fragment="content">
@@ -14,10 +14,16 @@
         <div class="col-md-6 col-sm-6 offset-sm-0 offset-md-3">
             <div class="card">
                 <div class="card-header text-bg-info">
-                    <strong>Add Patient</strong>
+                    <strong>Edit a Patient</strong>
                 </div>
                 <div class="card-body">
-                    <form method="post" th:action="@{/savePatient}">
+                    <form method="post" th:action="@{/savePatientAfEdite}">
+                        <div class="card-group m-2">
+                            <label class="form-label">
+                                ID:
+                            </label> <label th:text=" ${patient.id}"></label>
+                            <input type="hidden"  class="form-control" name="id" th:value="${patient.id}">
+                        </div>
                             <div class="card-group m-2">
                                 <label class="form-label">
                                     First Name
@@ -44,7 +50,7 @@
                                     <input type="checkbox" class="form-check-input" name="isSick" th:checked="${patient.isSick}">
                                 </label>
                             </div>
-                        <input class="btn btn-success mt-2" type="submit" th:value="Add">
+                        <input class="btn btn-primary mt-2" type="submit" th:value="Update">
                     </form>
                 </div>
             </div>

@@ -9,37 +9,45 @@
     <title>Add Patient</title>
 </head>
 <body>
-<section class="mt-5 container-fluid" layout:fragment="content">
-    <div class="card">
-        <div class="card-header">
-            <strong>Add Patient</strong>
-        </div>
-        <div class="card-body">
-            <form method="post" th:action="@{/savePatient}">
-                <div class="card">
-                    <div class="card-group d-flex col-7 m-2">
-                        <label class="form-label">
-                            Fisrt Name
-                        </label>
-                            <input type="text" class="form-control" name="FirstName" th:value="${patient.firstName}">
-                        <label class="form-label">
-                            Last Name
-                        </label>
-                            <input type="text" class="form-control" name="LastName" th:value="${patient.lastName}">
-                        <label class="form-label">
-                            Date BirthDay
-                        </label>
-                        <input class="form-control" type="date" name="birthDay" th:value="${patient.birthDay}">
-                    </div>
-                    <div class="card-group ms-2 d-flex align-content-center">
-                        <label class="form-check-label">
-                            is Sick
-                            <input type="checkbox" class="form-check-input" name="isSick" th:value="${patient.isSick}">
-                        </label>
-                    </div>
+<section class="mt-5" layout:fragment="content">
+    <div class="row w-100">
+        <div class="col-md-6 col-sm-6 offset-sm-0 offset-md-3">
+            <div class="card">
+                <div class="card-header text-bg-info">
+                    <strong>Add Patient</strong>
                 </div>
-                <input class="btn btn-success" type="submit" th:value="Add">
-            </form>
+                <div class="card-body">
+                    <form method="post" th:action="@{/savePatient}">
+                            <div class="card-group m-2">
+                                <label class="form-label">
+                                    First Name
+                                </label>
+                                <input type="text" class="form-control" name="FirstName" th:value="${patient.firstName}">
+                                <span class="text-danger" th:errors="${patient.firstName}"></span>
+                            </div>
+                            <div class="card-group m-2">
+                                <label class="form-label">
+                                    Last Name
+                                </label>
+                                <input type="text" class="form-control" name="LastName" th:value="${patient.lastName}">
+                                <span class="text-danger" th:errors="${patient.lastName}"></span>
+                            </div>
+                            <div class="card-group m-2">
+                                <label class="form-label">
+                                    Date BirthDay
+                                </label>
+                                <input class="form-control" type="date" name="birthDay" th:value="${patient.birthDay}">
+                            </div>
+                            <div class="card-group ms-2 d-flex align-content-center">
+                                <label class="form-check-label">
+                                    is Sick
+                                    <input type="checkbox" class="form-check-input" name="isSick" th:checked="${patient.isSick}">
+                                </label>
+                            </div>
+                        <input class="btn btn-success mt-2" type="submit" th:value="Add">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>

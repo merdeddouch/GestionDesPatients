@@ -26,8 +26,8 @@
                     </form>
                 </div>
                 <div class="mx-3 my-2">
-                    <a th:href="@{/index(p=${currentPage},isSick=true,value=${(currentValue)})}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
-                    <a th:href="@{/index(p=${currentPage},isSick=false,value=${(currentValue)})}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
+                    <a th:href="@{/index(p=${0},isSick=true,value=${(currentValue)})}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
+                    <a th:href="@{/index(p=${0},isSick=false,value=${(currentValue)})}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
                     <a th:href="@{/index(p=${(currentPage)},value=${(currentValue)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <td th:text="${patient.isSick}"></td>
                         <td>
                             <a th:href="@{/Delete(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
-                            <a th:href="@{/edit(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
+                            <a th:href="@{/editPatient(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
                         </td>
                     </tr>
                     </tbody>

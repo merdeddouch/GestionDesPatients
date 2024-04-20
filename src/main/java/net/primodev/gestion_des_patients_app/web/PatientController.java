@@ -1,6 +1,7 @@
 package net.primodev.gestion_des_patients_app.web;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.primodev.gestion_des_patients_app.entities.Patient;
 import net.primodev.gestion_des_patients_app.repository.PatientRepository;
@@ -8,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -70,8 +73,34 @@ public class PatientController {
         return "AddPatient";
     }
 
-    @GetMapping("/savePatient")
-    public String savePatient(Patient patient){
+    @GetMapping("/editPatient")
+    public String editPatient(Model model,@RequestParam(name = "id") Long id){
+        Patient patient = patientRepository.findById(id).get();
+        model.addAttribute("patient",patient);
+        return "editPatient";
+    }
+
+
+    @PostMapping("/savePatientAfEdite")
+    public String savePatientAfterEdite(@Valid Patient patient, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "editPatient";
+        }
+        if (patient.getIsSick() == null || patient.getIsSick()==false){
+            patient.setIsSick(false);
+        }
+        patientRepository.save(patient);
+        return "redirect:/index";
+    }
+
+    @PostMapping("/savePatient")
+    public String savePatient(@Valid Patient patient, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "AddPatient";
+        }
+        if (patient.getIsSick() == null || patient.getIsSick()==false){
+            patient.setIsSick(false);
+        }
         patientRepository.save(patient);
         return "redirect:/index";
     }
