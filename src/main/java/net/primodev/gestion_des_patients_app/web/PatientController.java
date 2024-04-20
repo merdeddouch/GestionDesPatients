@@ -18,9 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class PatientController {
     private PatientRepository patientRepository;
+    @GetMapping("/")
+    public String root(){
+        return "redirect:index";
+    }
     @GetMapping("/index")
     public String index(Model model,@RequestParam(name = "isSick", defaultValue = "") Boolean isSick , @RequestParam(name ="value" ,defaultValue = "") String value,
                         @RequestParam(name = "p", defaultValue = "0")  int page , @RequestParam(name = "s" , defaultValue = "5") int size){
+
 
 
         Page<Patient> Patients;
