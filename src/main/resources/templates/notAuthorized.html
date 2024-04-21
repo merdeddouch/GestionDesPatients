@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container my-3">
+        <div class="card">
+            <div class="card-header bg-info ">
+               <h6> Patients List</h6>
+            </div>
+            <div class="card-group flex-box justify-content-between my-2">
+                <div class="mx-3 col-5">
+                    <form method="get">
+                        <input class="form-control my-2" placeholder="search" name="value"  th:value="${currentValue == null}?'' : ${currentValue}">
+                        <input th:href="@{/user/index(p=${(currentPage)},isSitck=${(currentPatientHealth)},value=${(currentValue)})}" class="btn btn-info col-2" type="submit">
+                    </form>
+                </div>
+                <div class="mx-3 my-2">
+                    <a th:href="@{/user/index(p=${0},isSick=true,value=${(currentValue)})}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
+                    <a th:href="@{/user/index(p=${0},isSick=false,value=${(currentValue)})}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
+                    <a th:href="@{/user/index(p=${(currentPage)},value=${(currentValue)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Last Name
+                            </th>
+                            <th>
+                                First Name
+                            </th>
+                            <th>
+                                BirthDay
+                            </th>
+                            <th>
+                                isSick
+                            </th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="patient:${ListPatients}">
+                        <td th:text="${patient.id}"></td>
+                        <td th:text="${patient.lastName}"></td>
+                        <td th:text="${patient.firstName}"></td>
+                        <td th:text="${patient.birthDay}"></td>
+                        <td th:text="${patient.isSick}"></td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"patients.html>
+                            <a th:href="@{/admin/Delete(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
+                            <a th:href="@{/admin/editPatient(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="card-group">
+                    <div class="btn-group" th:each="page,state:${pages}">
+                        <a th:class="${currentPage == state.index} ? 'mx-1 btn btn-info' : 'mx-1 btn btn-outline-info'  " th:text="${state.index}" th:href="@{/user/index(p=${(state.index)},isSick=${currentPatientHealth},value=${(currentValue)})}"> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
