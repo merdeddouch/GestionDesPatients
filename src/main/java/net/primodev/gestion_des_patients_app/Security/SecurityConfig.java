@@ -29,11 +29,10 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin();
+        httpSecurity.formLogin();
+        httpSecurity.authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER");
+        httpSecurity.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("ADMIN");
+        httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
         return httpSecurity.build();
     }
 

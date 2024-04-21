@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" >
-    <link src="webjars/bootstrap/5.3.2/js/bootstrap.min.js">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" >
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
     <title>Delete</title>
 </head>
 <body>
@@ -16,8 +17,8 @@
                 <p><strong class="text-danger">Do you want to Delete this patient :</strong></p>
                 <h5 th:text="${'Last Name: ' + patient.lastName + ', First Name: ' + patient.firstName + ', Health Status: ' + (patient.isSick ? 'sick' : 'not sick')}"></h5>
             <div class="card-group my-3">
-                <a th:href="@{/deleteValidation(deleteValidation='Confirm', id=${(patient.id)} )}" class="btn btn-danger me-2" >Confirm</a>
-                <a class="btn btn-outline-danger" th:href="@{/deleteValidation(deleteValidation='Cancel', id=${(patient.id)})}">Cancel</a>
+                <a th:href="@{/admin/deleteValidation(deleteValidation='Confirm', id=${(patient.id)} )}" class="btn btn-danger me-2" >Confirm</a>
+                <a class="btn btn-outline-danger" th:href="@{/admin/deleteValidation(deleteValidation='Cancel', id=${(patient.id)})}">Cancel</a>
             </div>
         </div>
     </div>

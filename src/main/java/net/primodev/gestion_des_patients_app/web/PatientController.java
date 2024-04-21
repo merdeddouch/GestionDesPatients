@@ -20,12 +20,11 @@ public class PatientController {
     private PatientRepository patientRepository;
     @GetMapping("/")
     public String root(){
-        return "redirect:index";
+        return "redirect:/user/index";
     }
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String index(Model model,@RequestParam(name = "isSick", defaultValue = "") Boolean isSick , @RequestParam(name ="value" ,defaultValue = "") String value,
                         @RequestParam(name = "p", defaultValue = "0")  int page , @RequestParam(name = "s" , defaultValue = "5") int size){
-
 
 
         Page<Patient> Patients;
@@ -52,7 +51,7 @@ public class PatientController {
         // return a view
         return "patients";
     }
-    @GetMapping("/Delete")
+    @GetMapping("/admin/Delete")
     public String delete(Model model, @RequestParam("id") Long id) {
         // Get the patient we want to delete
         Patient patient = patientRepository.findById(id).orElse(null);
@@ -60,25 +59,25 @@ public class PatientController {
             model.addAttribute("patient", patient);
             return "deletePatient";
         } else {
-            return "redirect:/index"; // Redirect to index if patient is not found
+            return "redirect:/user/index"; // Redirect to index if patient is not found
         }
     }
-    @GetMapping("/deleteValidation")
+    @GetMapping("/admin/deleteValidation")
     public String deleteValidation(@RequestParam(name = "deleteValidation") String confiming ,@RequestParam("id") Long id){
         if (confiming.equals("Confirm")){
             patientRepository.deleteById(id);
         }else{
-            return "redirect:/index";
+            return "redirect:/user/index";
         }
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @GetMapping("/addPatient")
+    @GetMapping("/admin/addPatient")
     public String addPatient(Model model){
         model.addAttribute("patient",new Patient());
         return "AddPatient";
     }
 
-    @GetMapping("/editPatient")
+    @GetMapping("/admin/editPatient")
     public String editPatient(Model model,@RequestParam(name = "id") Long id){
         Patient patient = patientRepository.findById(id).get();
         model.addAttribute("patient",patient);
@@ -86,7 +85,7 @@ public class PatientController {
     }
 
 
-    @PostMapping("/savePatientAfEdite")
+    @PostMapping("/admin/savePatientAfEdite")
     public String savePatientAfterEdite(@Valid Patient patient, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "editPatient";
@@ -95,10 +94,10 @@ public class PatientController {
             patient.setIsSick(false);
         }
         patientRepository.save(patient);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @PostMapping("/savePatient")
+    @PostMapping("/admin/savePatient")
     public String savePatient(@Valid Patient patient, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "AddPatient";
@@ -107,7 +106,7 @@ public class PatientController {
             patient.setIsSick(false);
         }
         patientRepository.save(patient);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
 

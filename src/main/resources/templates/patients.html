@@ -5,9 +5,6 @@
       layout:decorate="template.html"
 >
 <head>
-    <link rel="stylesheet" href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" >
-    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
-    <link rel="stylesheet" href="webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
     <meta charset="UTF-8">
     <title>Patients</title>
 </head>
@@ -22,13 +19,13 @@
                 <div class="mx-3 col-5">
                     <form method="get">
                         <input class="form-control my-2" placeholder="search" name="value"  th:value="${currentValue == null}?'' : ${currentValue}">
-                        <input th:href="@{/index(p=${(currentPage)},isSitck=${(currentPatientHealth)},value=${(currentValue)})}" class="btn btn-info col-2" type="submit">
+                        <input th:href="@{/user/index(p=${(currentPage)},isSitck=${(currentPatientHealth)},value=${(currentValue)})}" class="btn btn-info col-2" type="submit">
                     </form>
                 </div>
                 <div class="mx-3 my-2">
-                    <a th:href="@{/index(p=${0},isSick=true,value=${(currentValue)})}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
-                    <a th:href="@{/index(p=${0},isSick=false,value=${(currentValue)})}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
-                    <a th:href="@{/index(p=${(currentPage)},value=${(currentValue)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
+                    <a th:href="@{/user/index(p=${0},isSick=true,value=${(currentValue)})}" th:class="${currentPatientHealth == true}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Sick Patients</a>
+                    <a th:href="@{/user/index(p=${0},isSick=false,value=${(currentValue)})}" th:class="${currentPatientHealth == false}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">Healthy Patients</a>
+                    <a th:href="@{/user/index(p=${(currentPage)},value=${(currentValue)})}" th:class="${currentPatientHealth == null}? 'btn btn-secondary me-2' :  'btn btn-outline-secondary me-2'">All Patients</a>
                 </div>
             </div>
             <div class="card-body">
@@ -50,7 +47,7 @@
                             <th>
                                 isSick
                             </th>
-                            <th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
                                 Actions
                             </th>
                         </tr>
@@ -62,16 +59,16 @@
                         <td th:text="${patient.firstName}"></td>
                         <td th:text="${patient.birthDay}"></td>
                         <td th:text="${patient.isSick}"></td>
-                        <td>
-                            <a th:href="@{/Delete(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
-                            <a th:href="@{/editPatient(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            <a th:href="@{/admin/Delete(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
+                            <a th:href="@{/admin/editPatient(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="card-group">
                     <div class="btn-group" th:each="page,state:${pages}">
-                        <a th:class="${currentPage == state.index} ? 'mx-1 btn btn-info' : 'mx-1 btn btn-outline-info'  " th:text="${state.index}" th:href="@{/index(p=${(state.index)},isSick=${currentPatientHealth},value=${(currentValue)})}"> </a>
+                        <a th:class="${currentPage == state.index} ? 'mx-1 btn btn-info' : 'mx-1 btn btn-outline-info'  " th:text="${state.index}" th:href="@{/user/index(p=${(state.index)},isSick=${currentPatientHealth},value=${(currentValue)})}"> </a>
                     </div>
                 </div>
             </div>
