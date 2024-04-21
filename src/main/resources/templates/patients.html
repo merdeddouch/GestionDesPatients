@@ -59,7 +59,7 @@
                         <td th:text="${patient.firstName}"></td>
                         <td th:text="${patient.birthDay}"></td>
                         <td th:text="${patient.isSick}"></td>
-                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"patients.html>
+                        <td>
                             <a th:href="@{/admin/Delete(id=${(patient.id)})}" class=" mx-1 btn btn-danger">Delete</a>
                             <a th:href="@{/admin/editPatient(id=${(patient.id)})}" class=" mx-1 btn btn-primary">Edit</a>
                         </td>

@@ -7,6 +7,7 @@ import net.primodev.gestion_des_patients_app.entities.Patient;
 import net.primodev.gestion_des_patients_app.repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,6 +52,8 @@ public class PatientController {
         // return a view
         return "patients";
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/Delete")
     public String delete(Model model, @RequestParam("id") Long id) {
         // Get the patient we want to delete
@@ -62,6 +65,7 @@ public class PatientController {
             return "redirect:/user/index"; // Redirect to index if patient is not found
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/deleteValidation")
     public String deleteValidation(@RequestParam(name = "deleteValidation") String confiming ,@RequestParam("id") Long id){
         if (confiming.equals("Confirm")){
@@ -71,12 +75,13 @@ public class PatientController {
         }
         return "redirect:/user/index";
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/addPatient")
     public String addPatient(Model model){
         model.addAttribute("patient",new Patient());
         return "AddPatient";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/editPatient")
     public String editPatient(Model model,@RequestParam(name = "id") Long id){
         Patient patient = patientRepository.findById(id).get();
@@ -84,7 +89,7 @@ public class PatientController {
         return "editPatient";
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/admin/savePatientAfEdite")
     public String savePatientAfterEdite(@Valid Patient patient, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -96,7 +101,7 @@ public class PatientController {
         patientRepository.save(patient);
         return "redirect:/user/index";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/admin/savePatient")
     public String savePatient(@Valid Patient patient, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
